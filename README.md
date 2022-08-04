@@ -1,6 +1,6 @@
 # Learning eBPF 
 
-This repo is a work in progress and currently includes:
+This repo is a work in progress to accompany a book I'm writing (to be published by O'Reilly). The repo currently includes:
 
 * A [Lima](github.com/lima-vm/lima) config file with the packages you need for building the code pre-installed 
 * A Hello World eBPF program (using libbpf)
