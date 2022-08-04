@@ -31,6 +31,13 @@ make
 sudo make install 
 ```
 
+## Building libbpf.a
+
+```
+cd libbpf/src
+make
+```
+
 ## Building BPF code
 
 As root (sudo -S), run `make`

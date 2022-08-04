@@ -1,9 +1,9 @@
 #include <linux/bpf.h>
 #include <bpf_helpers.h>
 
-SEC("kprobe/sys_execve")
+SEC("raw_tp/sys_enter")
 int hello(void *ctx) {
-    bpf_printk("Hello World\n");
+    bpf_printk("Hello World");
     return 0;
 }
 
