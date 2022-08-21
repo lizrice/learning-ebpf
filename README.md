@@ -40,7 +40,7 @@ make
 
 ## Building BPF code
 
-As root (sudo -S), run `make`
+As root (sudo -s), run `make`
 
 ## Loading BPF code 
 
