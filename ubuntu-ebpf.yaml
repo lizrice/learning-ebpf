@@ -19,4 +19,4 @@ provision:
     apt-get update
     apt-get install -y apt-transport-https ca-certificates curl clang llvm jq
     apt-get install -y libelf-dev libpcap-dev libbfd-dev binutils-dev build-essential make 
-    apt-get install -y linux-tools-common linux-tools-5.15.0-41-generic
+    apt-get install -y linux-tools-common linux-tools-5.15.0-41-generic bpfcc-tools
