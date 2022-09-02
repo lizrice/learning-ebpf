@@ -3,8 +3,11 @@
 This repo is a work in progress to accompany a book I'm writing (to be published by O'Reilly). The repo currently includes:
 
 * A [Lima](https://github.com/lima-vm/lima) config file with the packages you need for building the code pre-installed 
-* A Hello World eBPF program (using libbpf)
-* A userspace program that attaches Hello World to a raw tracepoint 
+* Some example eBPF programs that are referred to by different chapters in the book
+
+**TODO** document the individual examples with their own README files. 
+
+## Installing this repo 
 
 ```
 git clone https://github.com/lizrice/learning-ebpf
@@ -15,9 +18,11 @@ limactl shell ubuntu-ebpf
 cd learning-ebpf
 git submodule init
 git submodule add https://github.com/libbpf/libbpf
-```
 
-## Building bpftool 
+sudo -s
+```
+You'll need root privileges (well, strictly CAP_BPF) to be able to load BPF programs into the kernel.
+## Building bpftool
 
 To get BFD support you might need to build bpftool from source
 
@@ -31,33 +36,18 @@ make
 sudo make install 
 ```
 
-## Building libbpf.a
+## Building libbpf and installing header files
 
 ```
 cd libbpf/src
 make
+make install
 ```
 
 ## Building BPF code
 
-As root (sudo -s), run `make`
+For each example, if there's a Makefile you should simply be able to run `make` as root 
 
-## Loading BPF code 
-
-I intended this exercise to let you load the program into the kernel using `bpftool`: 
-
-```
-bpftool prog load hello.bpf.o /sys/fs/bpf/hello
-```
-
-And then you can inspect the code using bpftool, e.g. with `bpftool dump xlated name hello`.
-
-## Attaching to a raw tracepoint
-
-You can't attach the code to a tracepoint using `bpftool` so there is a small user-space program that can do this for you. In real applications you would likely want to use `bpftool gen skeleton`, and write user space code that loads the program as well as attaches it to an event, so this is more of an exercise in seeing what exactly is happening during attachment. 
-
-As an exercise, you can run `strace -e bpf ./hello` to see this userspace code making the bpf() system calls. 
-
-## View the trace output
+## View eBPF trace output
 
 As root, `cat /sys/kernel/debug/tracing/trace-pipe`

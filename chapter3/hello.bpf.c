@@ -1,5 +1,5 @@
 #include <linux/bpf.h>
-#include <bpf_helpers.h>
+#include <bpf/bpf_helpers.h>
 
 SEC("xdp")
 int hello(struct xdp_md *ctx) {

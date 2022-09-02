@@ -9,7 +9,6 @@ $(BPF_OBJ): %.o: %.c
 	clang \
 	    -target bpf \
 	    -D __BPF_TRACING__ \
-	    -I../libbpf/src\
 		-I/usr/include/$(shell uname -m)-linux-gnu \
 	    -Wall \
 	    -O2 -o $@ -c $<
