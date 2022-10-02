@@ -28,18 +28,14 @@ struct {
 // SEC("tp_btf/sched_process_exec")
 // int handle_exec(struct trace_event_raw_sched_process_exec *ctx)
 SEC("kprobe/__arm64_sys_execve")
-int BPF_KPROBE(hello, char *pathname)
+int hello(void *ctx)
 {
    struct message_data data = {}; 
    struct msg_t *p;
    u64 uid;
-   char name[100];
 
    data.counter = c; 
    c++; 
-
-   bpf_probe_read_user(name, 100, pathname);
-   bpf_printk("[%s] %d \n", name, data.counter);
 
    data.pid = bpf_get_current_pid_tgid();
    uid = bpf_get_current_uid_gid() & 0xFFFFFFFF;

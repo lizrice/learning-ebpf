@@ -7,6 +7,9 @@
 
 static int libbpf_print_fn(enum libbpf_print_level level, const char *format, va_list args)
 {
+	if (level >= LIBBPF_DEBUG)
+		return 0;
+
 	return vfprintf(stderr, format, args);
 }
 
@@ -66,7 +69,7 @@ int main()
 
 	while (true) {
 		err = perf_buffer__poll(pb, 100 /* timeout, ms */);
-		/* Ctrl-C will cause -EINTR */
+		// Ctrl-C gives -EINTR
 		if (err == -EINTR) {
 			err = 0;
 			break;
