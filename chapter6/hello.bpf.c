@@ -20,7 +20,11 @@ struct {
     __type(value, struct msg_t);
 } my_config SEC(".maps");
 
+#ifdef __TARGET_ARCH_arm64
 SEC("kprobe/__arm64_sys_execve")
+#else 
+SEC("kprobe/__x64_sys_execve")
+#endif
 int hello(void *ctx)
 {
    struct message_data data = {}; 
