@@ -24,9 +24,6 @@ struct {
     __type(value, struct msg_t);
 } my_config SEC(".maps");
 
-
-// SEC("tp_btf/sched_process_exec")
-// int handle_exec(struct trace_event_raw_sched_process_exec *ctx)
 SEC("kprobe/__arm64_sys_execve")
 int hello(void *ctx)
 {

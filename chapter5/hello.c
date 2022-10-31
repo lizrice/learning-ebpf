@@ -40,18 +40,6 @@ int main()
 		return 1;
 	}
 
-	// skel = hello_bpf__open();
-	// if (!skel) {
-	// 	printf("Failed to open BPF object\n");
-	// 	return 1;
-    // }    
-    // skel->data->c = 10;
-	// err = hello_bpf__load(skel);
-	// if (err) {
-	// 	hello_bpf__destroy(skel);
-	// 	return 1;
-	// }
-
 	err = hello_bpf__attach(skel);
 	if (err) {
 		fprintf(stderr, "Failed to attach BPF skeleton: %d\n", err);
