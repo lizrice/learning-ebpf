@@ -1,3 +1,5 @@
 *.o
-.vscode/*
-*/hello
+.vscode/
+hello
+*.skel.h
+vmlinux.h
