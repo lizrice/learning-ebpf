@@ -9,10 +9,10 @@ USER_C = ${TARGET:=.c}
 USER_EXE = $(TARGET)
 USER_SKEL = ${TARGET:=.skel.h}
 
-.PHONY: $(TARGET)
+.PHONY: app
 .PHONY: $(USER_EXE)
 
-$(TARGET): $(USER_EXE) $(BPF_OBJ)
+app: $(USER_EXE) $(BPF_OBJ)
 
 $(USER_EXE): $(USER_C) $(USER_SKEL)
 	gcc -Wall -o $(TARGET) $(USER_C) -L../libbpf/src -l:libbpf.a -lelf -lz
