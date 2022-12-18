@@ -24,7 +24,7 @@ sudo -s
 You'll need root privileges (well, strictly CAP_BPF) to be able to load BPF programs into the kernel.
 ## Building bpftool
 
-To get BFD support you might need to build bpftool from source
+To get BTF support you might need to build bpftool from source
 
 ```
 cd ..
