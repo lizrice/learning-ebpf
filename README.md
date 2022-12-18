@@ -5,6 +5,10 @@ This repo is a work in progress to accompany a book I'm writing (to be published
 * A [Lima](https://github.com/lima-vm/lima) config file with the packages you need for building the code pre-installed 
 * Some example eBPF programs that are referred to by different chapters in the book
 
+If you have a Linux machine or VM to hand, feel free to use that instead of Lima. The minimum kernel version required varies from chapter to chapter. All these examples have been tested on an Ubuntu distribution using a 5.15 kernel. 
+
+You'll need root privileges (well, strictly CAP_BPF) to be able to load BPF programs into the kernel.
+
 **TODO** document the individual examples with their own README files. 
 
 ## Installing this repo 
@@ -12,6 +16,7 @@ This repo is a work in progress to accompany a book I'm writing (to be published
 ```
 git clone https://github.com/lizrice/learning-ebpf
 
+cd learning-ebpf
 limactl start ubuntu-ebpf.yaml
 limactl shell ubuntu-ebpf
 
@@ -21,10 +26,10 @@ git submodule add https://github.com/libbpf/libbpf
 
 sudo -s
 ```
-You'll need root privileges (well, strictly CAP_BPF) to be able to load BPF programs into the kernel.
+
 ## Building bpftool
 
-To get BFD support you might need to build bpftool from source
+To get BTF support you might need to build bpftool from source
 
 ```
 cd ..
