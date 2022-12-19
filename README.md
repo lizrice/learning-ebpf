@@ -7,7 +7,7 @@ This repo is a work in progress to accompany a book I'm writing (to be published
 
 If you have a Linux machine or VM to hand, feel free to use that instead of Lima. The minimum kernel version required varies from chapter to chapter. All these examples have been tested on an Ubuntu distribution using a 5.15 kernel. 
 
-You'll need root privileges (well, strictly CAP_BPF) to be able to load BPF programs into the kernel.
+You'll need root privileges (well, strictly CAP_BPF) to be able to load BPF programs into the kernel. You'll also need [additional privileges](https://mdaverde.com/posts/cap-bpf/) for certain examples.
 
 **TODO** document the individual examples with their own README files. 
 
