@@ -1,4 +1,4 @@
-TARGET = hello
+TARGET = hello-buffer-config
 ARCH = $(shell uname -m | sed 's/x86_64/x86/' | sed 's/aarch64/arm64/')
 
 BPF_TARGET = ${TARGET:=.bpf}
@@ -20,7 +20,6 @@ $(USER_EXE): $(USER_C) $(USER_SKEL)
 $(BPF_OBJ): %.o: $(BPF_C) vmlinux.h
 	clang \
 	    -target bpf \
-	    -D __BPF_TRACING__ \
         -D __TARGET_ARCH_$(ARCH) \
 	    -Wall \
 	    -O2 -g -o $@ -c $<
