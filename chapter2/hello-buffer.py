@@ -5,8 +5,8 @@ program = r"""
 BPF_PERF_OUTPUT(output); 
  
 struct data_t {     
-   u32 pid;
-   u32 uid;
+   int pid;
+   int uid;
    char command[16];
    char message[12];
 };
