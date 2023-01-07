@@ -1,4 +1,4 @@
-struct message_data {
+struct data_t {
    int pid;
    int uid;
    int counter;

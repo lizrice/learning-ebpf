@@ -1,19 +1,26 @@
-TARGET = hello
+TARGETS = hello hello-func
 
-BPF_TARGET = ${TARGET:=.bpf}
-BPF_OBJ = ${BPF_TARGET:=.o}
+all: $(TARGETS)
 
-.PHONY: $(TARGET)
+$(TARGETS): %: %.bpf.o 
 
-$(BPF_OBJ): %.o: %.c
+# BPF_TARGET = ${TARGET:=.bpf}
+# BPF_OBJ = ${BPF_TARGET:=.o}
+
+.PHONY: hello hello-func
+
+# $(patsubst %,%)
+
+# $(BPF_OBJ): %.o: %.c
+%.bpf.o: %.bpf.c
 	clang \
 	    -target bpf \
-	    -D __BPF_TRACING__ \
 		-I/usr/include/$(shell uname -m)-linux-gnu \
-	    -Wall \
+		-g \
 	    -O2 -o $@ -c $<
 
-clean:
-	rm -f /sys/fs/bpf/$(TARGET)
-	rm $(BPF_OBJ)
+clean: 
+	rm *.bpf.o
+	rm -f /sys/fs/bpf/hello 
+	rm -f /sys/fs/bpf/hello-func
 

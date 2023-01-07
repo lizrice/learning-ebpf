@@ -1,4 +1,4 @@
-TARGET = hello
+TARGET = hello-verifier
 ARCH = $(shell uname -m | sed 's/x86_64/x86/' | sed 's/aarch64/arm64/')
 
 BPF_TARGET = ${TARGET:=.bpf}
@@ -25,7 +25,7 @@ $(BPF_OBJ): %.o: $(BPF_C) vmlinux.h  $(COMMON_H)
         -D __TARGET_ARCH_$(ARCH) \
 	    -Wall \
 	    -O2 -g -o $@ -c $<
-	# llvm-strip -g $@
+	llvm-strip -g $@
 
 $(USER_SKEL): $(BPF_OBJ)
 	bpftool gen skeleton $< > $@

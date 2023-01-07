@@ -2,7 +2,7 @@
 #include <bpf/bpf_helpers.h>
 #include <bpf/bpf_tracing.h>
 #include <bpf/bpf_core_read.h>
-#include "hello.h"
+#include "hello-verifier.h"
 
 int c = 1;
 char message[12] = "Hello World";
@@ -11,7 +11,7 @@ struct {
     __uint(type, BPF_MAP_TYPE_PERF_EVENT_ARRAY);
     __uint(key_size, sizeof(u32));
     __uint(value_size, sizeof(u32));
-} hey SEC(".maps");
+} output SEC(".maps");
 
 struct {
     __uint(type, BPF_MAP_TYPE_HASH);
@@ -25,9 +25,9 @@ SEC("kprobe/__arm64_sys_execve")
 #else 
 SEC("kprobe/__x64_sys_execve")
 #endif
-int hello(void *ctx)
+int kprobe_exec(void *ctx)
 {
-   struct message_data data = {}; 
+   struct data_t data = {}; 
    struct msg_t *p;
    u64 uid;
 
@@ -56,7 +56,7 @@ int hello(void *ctx)
    }
 
    bpf_get_current_comm(&data.command, sizeof(data.command));
-   bpf_perf_event_output(ctx, &hey, BPF_F_CURRENT_CPU,  &data, sizeof(data));
+   bpf_perf_event_output(ctx, &output, BPF_F_CURRENT_CPU,  &data, sizeof(data));
    
    return 0;
 }
