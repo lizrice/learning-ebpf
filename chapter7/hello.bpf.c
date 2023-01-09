@@ -41,7 +41,7 @@ int BPF_KPROBE_SYSCALL(kprobe_sys_execve, char *pathname)
 }
 
 // TODO!! Work on ARM
-// #ifndef __TARGET_ARCH_arm64
+#ifndef __TARGET_ARCH_arm64
 SEC("kprobe/do_execve")
 int BPF_KPROBE(kprobe_do_execve, struct filename *filename) {
    struct message_data data = {}; 
@@ -57,7 +57,7 @@ int BPF_KPROBE(kprobe_do_execve, struct filename *filename) {
    
    return 0;   
 }
-// #endif
+#endif
 
 // This should really look at the kernel version, because fentry is supported on
 // ARM from Linux 6.0 onwards
