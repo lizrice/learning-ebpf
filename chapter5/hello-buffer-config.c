@@ -31,7 +31,6 @@ int main()
     int err;
 	struct perf_buffer *pb = NULL;
 
-	libbpf_set_strict_mode(LIBBPF_STRICT_ALL);
 	libbpf_set_print(libbpf_print_fn);
 
 	skel = hello_buffer_config_bpf__open_and_load();

@@ -23,11 +23,7 @@ struct {
     __type(value, struct user_msg_t);
 } my_config SEC(".maps");
 
-#ifdef __TARGET_ARCH_arm64
-SEC("kprobe/__arm64_sys_execve")
-#else 
-SEC("kprobe/__x64_sys_execve")
-#endif
+SEC("ksyscall/execve")
 int BPF_KPROBE_SYSCALL(hello, const char *pathname)
 {
    struct data_t data = {}; 

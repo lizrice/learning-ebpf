@@ -29,7 +29,7 @@ sudo -s
 
 ## Building bpftool
 
-To get BTF support you might need to build bpftool from source
+To get libbfd support you might need to build bpftool from source
 
 ```
 cd ..

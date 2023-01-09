@@ -43,10 +43,10 @@ int hello(void *ctx) {
 """
 
 b = BPF(text=program) 
-b["config"][ct.c_int(0)] = ct.create_string_buffer(b"Hey root!")
-b["config"][ct.c_int(1)] = ct.create_string_buffer(b"Hi user 1!")
 syscall = b.get_syscall_fnname("execve")
 b.attach_kprobe(event=syscall, fn_name="hello")
+b["config"][ct.c_int(0)] = ct.create_string_buffer(b"Hey root!")
+b["config"][ct.c_int(501)] = ct.create_string_buffer(b"Hi user 501!")
  
 def print_event(cpu, data, size):  
    data = b["output"].event(data)
