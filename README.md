@@ -55,4 +55,4 @@ For each example, if there's a Makefile you should simply be able to run `make` 
 
 ## View eBPF trace output
 
-As root, `cat /sys/kernel/debug/tracing/trace-pipe`
+As root, `cat /sys/kernel/debug/tracing/trace_pipe`
