@@ -22,7 +22,6 @@ limactl shell ubuntu-ebpf
 
 cd learning-ebpf
 git submodule init
-git submodule add https://github.com/libbpf/libbpf
 
 sudo -s
 ```
