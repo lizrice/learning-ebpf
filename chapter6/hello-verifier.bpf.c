@@ -20,11 +20,7 @@ struct {
     __type(value, struct msg_t);
 } my_config SEC(".maps");
 
-#ifdef __TARGET_ARCH_arm64
-SEC("kprobe/__arm64_sys_execve")
-#else 
-SEC("kprobe/__x64_sys_execve")
-#endif
+SEC("ksyscall/execve")
 int kprobe_exec(void *ctx)
 {
    struct data_t data = {}; 
@@ -42,12 +38,11 @@ int kprobe_exec(void *ctx)
    // The first argument needs to be a pointer to a map; the following won't be accepted 
    // p = bpf_map_lookup_elem(&data, &uid);
 
-   // Attempt to dereference a null pointer
-   // char cc = 0;
-   // cc = p->message[0];
-   // bpf_printk("%d", cc);
-
-   bpf_probe_read_kernel(&data.message, sizeof(data.message), p);  
+   // Attempt to dereference a potentially null pointer
+   if (p != 0) {
+      char a = p->message[0];
+      bpf_printk("%d", a);        
+   }
 
    if (p != 0) {
       bpf_probe_read_kernel(&data.message, sizeof(data.message), p->message);  
@@ -55,10 +50,49 @@ int kprobe_exec(void *ctx)
       bpf_probe_read_kernel(&data.message, sizeof(data.message), message); 
    }
 
+   // Changing this to <= means and c could have value beyond the bounds of the
+   // global message array
+   // if (c <= sizeof(message)) {
+   if (c < sizeof(message)) {
+      char a = message[c];
+      bpf_printk("%c", a);
+   }
+
+   // Changing this to <= means and c could have value beyond the bounds of the
+   // data.message array
+   // if (c <= sizeof(data.message)) {
+   if (c < sizeof(data.message)) {
+      char a = data.message[c];
+      bpf_printk("%c", a);
+   } 
+
    bpf_get_current_comm(&data.command, sizeof(data.command));
    bpf_perf_event_output(ctx, &output, BPF_F_CURRENT_CPU,  &data, sizeof(data));
-   
+
    return 0;
+}
+
+SEC("xdp")
+int xdp_hello(struct xdp_md *ctx) {
+  void *data = (void *)(long)ctx->data;
+  void *data_end = (void *)(long)ctx->data_end;
+
+  // Attempt to read outside the packet
+  // data_end++; 
+
+   // This is a loop that will pass the verifier
+   // for (int i=0; i < 10; i++) {
+   //    bpf_printk("Looping %d", i);
+   // }
+
+   // This is a loop that will fail the verifier
+   // for (int i=0; i < c; i++) {
+   //    bpf_printk("Looping %d", i);
+   // }
+
+  // Comment out the next two lines and there won't be a return code defined
+  bpf_printk("%x %x", data, data_end);
+  return XDP_PASS;
 }
 
 // Removing the license section means the verifier won't let you use
