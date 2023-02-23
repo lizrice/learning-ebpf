@@ -26,6 +26,8 @@ vmlinux.h:
 
 clean:
 	- bpftool net detach xdp dev lo
+	- bpftool net detach xdp dev docker0
 	- rm -f /sys/fs/bpf/$(TARGET)
 	- rm $(BPF_OBJ)
+	- tc filter delete dev docker0 parent ffff:
 
