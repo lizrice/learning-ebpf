@@ -16,9 +16,9 @@ static int libbpf_print_fn(enum libbpf_print_level level, const char *format, va
 
 void handle_event(void *ctx, int cpu, void *data, unsigned int data_sz)
 {
-	struct message_data *m = data;
+	struct data_t *m = data;
 
-	printf("%-6d %-6d %-16s %s\n", m->pid, m->uid, m->command, m->message);
+	printf("%-6d %-6d %-16s %-16s %s\n", m->pid, m->uid, m->command, m->path, m->message);
 }
 
 void lost_event(void *ctx, int cpu, long long unsigned int data_sz)
@@ -71,7 +71,7 @@ int main()
         return 1;
 	}
 
-	pb = perf_buffer__new(bpf_map__fd(skel->maps.hey), 8, handle_event, lost_event, NULL, NULL);
+	pb = perf_buffer__new(bpf_map__fd(skel->maps.output), 8, handle_event, lost_event, NULL, NULL);
 	if (!pb) {
 		err = -1;
 		fprintf(stderr, "Failed to create ring buffer\n");
