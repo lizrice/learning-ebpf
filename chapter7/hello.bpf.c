@@ -161,19 +161,4 @@ int raw_tp_exec(struct bpf_raw_tracepoint_args *ctx)
    return 0;
 }
 
-// This should really look at the kernel version, because fentry is supported on
-// ARM from Linux 6.0 onwards
-// #ifndef __TARGET_ARCH_arm64
-// SEC("fentry/do_unlinkat")
-// int BPF_PROG(do_unlinkat, int dfd, struct filename *name)
-// {
-// 	pid_t pid;
-
-// 	pid = bpf_get_current_pid_tgid() >> 32;
-// 	bpf_printk("fentry: pid = %d, filename = %s\n", pid, name->name);
-
-// 	return 0;
-// }
-// #endif
-
 char LICENSE[] SEC("license") = "Dual BSD/GPL";

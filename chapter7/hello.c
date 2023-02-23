@@ -33,7 +33,6 @@ int main()
     int err;
 	struct perf_buffer *pb = NULL;
 
-	libbpf_set_strict_mode(LIBBPF_STRICT_ALL);
 	libbpf_set_print(libbpf_print_fn);
 
 	char log_buf[64 * 1024];
@@ -57,6 +56,7 @@ int main()
 		}
 		printf("%c", log_buf[i]);
 	}
+	
 	if (err) {
 		printf("Failed to load BPF object\n");
 		hello_bpf__destroy(skel);

@@ -1,9 +1,7 @@
 TARGET = hello
 ARCH = $(shell uname -m | sed 's/x86_64/x86/' | sed 's/aarch64/arm64/')
 
-BPF_TARGET = ${TARGET:=.bpf}
-BPF_C = ${BPF_TARGET:=.c}
-BPF_OBJ = ${BPF_TARGET:=.o}
+BPF_OBJ = ${TARGET:=.bpf.o}
 
 USER_C = ${TARGET:=.c}
 USER_SKEL = ${TARGET:=.skel.h}
@@ -16,7 +14,7 @@ app: $(TARGET) $(BPF_OBJ)
 $(TARGET): $(USER_C) $(USER_SKEL) $(COMMON_H)
 	gcc -Wall -o $(TARGET) $(USER_C) -L../libbpf/src -l:libbpf.a -lelf -lz
 
-$(BPF_OBJ): %.o: $(BPF_C) vmlinux.h  $(COMMON_H)
+%.bpf.o: %.bpf.c vmlinux.h $(COMMON_H)
 	clang \
 	    -target bpf \
 	    -D __BPF_TRACING__ \
@@ -34,4 +32,5 @@ vmlinux.h:
 clean:
 	- rm $(BPF_OBJ)
 	- rm $(TARGET)
+	- rm $(USER_SKEL)
 
