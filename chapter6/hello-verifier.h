@@ -7,6 +7,5 @@ struct data_t {
 };
 
 struct msg_t {
-   // int unused_value;
    char message[12];
 };

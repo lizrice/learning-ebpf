@@ -6,16 +6,14 @@ BPF_C = ${BPF_TARGET:=.c}
 BPF_OBJ = ${BPF_TARGET:=.o}
 
 USER_C = ${TARGET:=.c}
-USER_EXE = $(TARGET)
 USER_SKEL = ${TARGET:=.skel.h}
 
 COMMON_H = ${TARGET:=.h}
 
-.PHONY: app
+all: $(TARGET) $(BPF_OBJ)
+.PHONY: all
 
-app: $(USER_EXE) $(BPF_OBJ)
-
-$(USER_EXE): $(USER_C) $(USER_SKEL) $(COMMON_H)
+$(TARGET): $(USER_C) $(USER_SKEL) $(COMMON_H)
 	gcc -Wall -o $(TARGET) $(USER_C) -L../libbpf/src -l:libbpf.a -lelf -lz
 
 $(BPF_OBJ): %.o: $(BPF_C) vmlinux.h  $(COMMON_H)
@@ -35,5 +33,5 @@ vmlinux.h:
 
 clean:
 	- rm $(BPF_OBJ)
-	- rm $(USER_EXE)
+	- rm $(TARGET)
 
