@@ -3,8 +3,7 @@
 #include <errno.h>
 #include <bpf/bpf.h>
 
-/* Compile with gcc -Wall -o find-map find-map.c -L../libbpf/src -l:libbpf.a
--lelf -lz */
+// Run this as root
 int main()
 {
     struct bpf_map_info info = {}; 
