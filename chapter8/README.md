@@ -1,10 +1,23 @@
 # Chapter 8 - Networking examples
 
-## XDP 
+## XDP
 
 The basic XDP example code discussed in the book is in hello.bpf.c. Running `make` builds this and also
 uses bpftool to load the program and attach it to the `lo` interface. You can
-just ping localhost to see it in action. 
+just ping localhost to see it in action.
+
+For the remaining examples in this chapter you'll need Docker installed. 
+
+```sh
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee
+/etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt update
+apt-cache policy docker-ce
+sudo apt install docker-ce
+```
 
 ## Socket filter, TC and tcpconnect examples
 
@@ -50,7 +63,7 @@ The socket_filter() eBPF program examines packets received at the socket and
 traces out if they are TCP or ICMP packets. It also sends a copy of TCP packets
 to user space. The Python code in network.py will displays that received data. 
 
-You can trigger these programs by sending TCP traffic, for example: 
+You can trigger these programs by sending TCP traffic, for example:
 
 `docker exec -it pingbox curl example.com`
 
@@ -59,7 +72,7 @@ You can trigger these programs by sending TCP traffic, for example:
 xdp() is another example eBPF program that drops ICMP requests. Try commenting this
 in and out to see that if it's enabled, these packets won't make it as far as TC.
 
-### Have XDP and TC intercept ping requests 
+### Have XDP and TC intercept ping requests
 
 `docker exec -it pingbox ping 172.17.0.1`
 
