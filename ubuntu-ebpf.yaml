@@ -8,6 +8,14 @@ images:
 cpus: 4
 memory: "10GiB"
 
+containerd:
+  system: false
+  user: false
+  archives:
+  - location: "~/Downloads/nerdctl-full-0.23.0-linux-arm64.tar.gz"
+    arch: "aarch64"
+    digest: "sha256:d25171f8b6fe778b77ff0830a8e17bd61c68af69bd734fb9d7f4490e069a7816"
+
 mounts:
 - location: "~"
   writable: true
@@ -20,3 +28,4 @@ provision:
     apt-get install -y apt-transport-https ca-certificates curl clang llvm jq
     apt-get install -y libelf-dev libpcap-dev libbfd-dev binutils-dev build-essential make 
     apt-get install -y linux-tools-common linux-tools-5.15.0-41-generic bpfcc-tools
+    apt-get install -y python3-pip
