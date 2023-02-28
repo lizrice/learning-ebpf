@@ -6,18 +6,7 @@ The basic XDP example code discussed in the book is in hello.bpf.c. Running `mak
 uses bpftool to load the program and attach it to the `lo` interface. You can
 just ping localhost to see it in action.
 
-For the remaining examples in this chapter you'll need Docker installed. 
-
-```sh
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee
-/etc/apt/sources.list.d/docker.list > /dev/null
-
-sudo apt update
-apt-cache policy docker-ce
-sudo apt install docker-ce
-```
+For the remaining examples in this chapter you'll need Docker installed in the Lima VM (or whatever Linux machine you're using for the examples from this book). Follow the [instructions from the Docker documentation](https://docs.docker.com/engine/install/ubuntu/#installation-methods) to install the `docker-ce` package. 
 
 ## Socket filter, TC and tcpconnect examples
 
