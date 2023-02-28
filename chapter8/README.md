@@ -70,4 +70,6 @@ The behaviour at TC depends which function you comment in within network.py
 If you modify the XDP program to drop ping packets, they won't reach the TC
 ingress event. 
 
+## Load balancer example
 
+See my [lb-from-scratch](https://github.com/lizrice/lb-from-scratch) repo.
