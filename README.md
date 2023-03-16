@@ -110,7 +110,5 @@ tracing gets written:
 
 ## Corrections
 
-If you're looking at an Early Release version of the book, you may well find
-inconsistencies between the book and this repo. But if you have the final
-published version, I'd love to hear if you find corrections and improvements for
+I'd love to hear if you find corrections and improvements for
 these examples. Issues and PRs are welcome!
