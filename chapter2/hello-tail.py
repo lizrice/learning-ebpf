@@ -1,6 +1,5 @@
 #!/usr/bin/python3  
 from bcc import BPF
-from time import sleep
 import ctypes as ct
 
 program = r"""
