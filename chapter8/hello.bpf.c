@@ -13,3 +13,5 @@ int ping(struct xdp_md *ctx) {
     }
     return XDP_PASS;
 }
+
+char LICENSE[] SEC("license") = "Dual BSD/GPL";
