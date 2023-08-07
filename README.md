@@ -68,6 +68,8 @@ cd bpftool/src
 make install 
 ```
 
+`bpftool` binaries are now also available from https://github.com/libbpf/bpftool/releases these days.
+
 ## Examples
 
 You won't be surprised to learn that the directories correspond to chapters in
