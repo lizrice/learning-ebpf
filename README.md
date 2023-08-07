@@ -22,8 +22,9 @@ I've also provided a [Lima](https://github.com/lima-vm/lima) config file with
 the packages you need for building the code pre-installed.
 
 If you have a Linux machine or VM to hand, feel free to use that instead of
-Lima. The minimum kernel version required varies from chapter to chapter. All
-these examples have been tested on an Ubuntu distribution using a 5.15 kernel.
+Lima, using the `learning-ebpf.yaml` file as a guide for the packages you'll 
+need to install. The minimum kernel version required varies from chapter to chapter. All
+these examples have been tested on an Ubuntu distribution using a 5.15 kernel. 
 
 ### Install this repo
 
@@ -57,7 +58,8 @@ cd ../..
 ### Building bpftool
 
 There are several examples using `bpftool` throughout the book. To get a version
-with libbfd support you might need to build it from source:
+with libbfd support (which you'll need if you want to see the jited code in the 
+Chapter 3 examples) you might need to build it from source:
 
 ```sh
 cd ..
