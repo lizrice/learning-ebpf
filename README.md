@@ -24,7 +24,9 @@ the packages you need for building the code pre-installed.
 If you have a Linux machine or VM to hand, feel free to use that instead of
 Lima, using the `learning-ebpf.yaml` file as a guide for the packages you'll 
 need to install. The minimum kernel version required varies from chapter to chapter. All
-these examples have been tested on an Ubuntu distribution using a 5.15 kernel. 
+these examples have been tested on an Ubuntu 22.04 distribution using a 5.15 kernel. 
+
+
 
 ### Install this repo
 
@@ -111,6 +113,12 @@ tracing gets written:
 
 * `cat /sys/kernel/debug/tracing/trace_pipe`
 * `bpftool prog tracelog`
+
+## Installing on other Linux distributions
+
+As noted above, I've tested these examples using Ubuntu 22.04 and a 5.15 kernel. If you're using a different distribution and / or kernel version you might run into incompatibilities between various packages and dependencies. For example: 
+
+ - My installation uses Clang 14. If you're using Clang 15 or later (which you can check with `clang --version` you'll need [BCC version 0.27.0](https://github.com/iovisor/bcc/releases) or later
 
 ## Corrections
 
