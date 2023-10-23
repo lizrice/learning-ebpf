@@ -5,7 +5,7 @@ static __attribute((noinline)) int get_opcode(struct bpf_raw_tracepoint_args *ct
     return ctx->args[1];
 }
 
-SEC("raw_tp")
+SEC("raw_tp/")
 int hello(struct bpf_raw_tracepoint_args *ctx) {
     int opcode = get_opcode(ctx);
     bpf_printk("Syscall: %d", opcode);
