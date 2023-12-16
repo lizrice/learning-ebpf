@@ -24,7 +24,7 @@ int hello(void *ctx) {
    struct user_msg_t *p;
    char message[12] = "Hello World";
 
-   data.pid = bpf_get_current_pid_tgid() >> 32;
+   data.pid = bpf_get_current_pid_tgid() & 0xFFFFFFFF;
    data.uid = bpf_get_current_uid_gid() & 0xFFFFFFFF;
 
    bpf_get_current_comm(&data.command, sizeof(data.command));
