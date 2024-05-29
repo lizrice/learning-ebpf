@@ -3,6 +3,7 @@ from bcc import BPF
 import socket
 import os
 from time import sleep
+import sys
 
 b = BPF(src_file="ping.bpf.c")
 interface = "lo"
@@ -11,5 +12,8 @@ interface = "lo"
 fx = b.load_func("xdp", BPF.XDP)
 BPF.attach_xdp(interface, fx, 0)
 
-b.trace_print()
+try:
+    b.trace_print()
+except KeyboardInterrupt:
+    sys.exit(0)
 
