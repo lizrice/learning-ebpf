@@ -8,7 +8,7 @@ int xdp(struct xdp_md *ctx) {
 
   if (is_icmp_ping_request(data, data_end)) {
         bpf_trace_printk("Got ping packet");
-        return XDP_PASS;
+        return XDP_DROP;
   }
 
   return XDP_PASS;

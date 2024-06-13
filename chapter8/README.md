@@ -12,7 +12,7 @@ this program and attaches it to the localhost interface.
 * In one terminal, start `ping`. You should see it showing a ping response being
   received every second, each one with an incrementing `icmp_seq`
   number
-* While `ping` is still running in the first termina, run `ping.py` in a second
+* While `ping` is still running in the first terminal, run `ping.py` in a second
   terminal. You will see trace showing that a ping packet is detected every
   second, but if you look in the first terminal you'll see that the responses
   are no longer being received. That's because the requests are being dropped by
