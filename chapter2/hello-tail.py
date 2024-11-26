@@ -3,7 +3,7 @@ from bcc import BPF
 import ctypes as ct
 
 program = r"""
-BPF_PROG_ARRAY(syscall, 300);
+BPF_PROG_ARRAY(syscall, 500);
 
 int hello(struct bpf_raw_tracepoint_args *ctx) {
     int opcode = ctx->args[1];
@@ -46,36 +46,17 @@ exec_fn = b.load_func("hello_exec", BPF.RAW_TRACEPOINT)
 timer_fn = b.load_func("hello_timer", BPF.RAW_TRACEPOINT)
 
 prog_array = b.get_table("syscall")
+
+# Ignore all syscalls initially
+for i in range(len(prog_array)):
+    prog_array[ct.c_int(i)] = ct.c_int(ignore_fn.fd)
+
+# Only enable few syscalls which are of the interest
 prog_array[ct.c_int(59)] = ct.c_int(exec_fn.fd)
 prog_array[ct.c_int(222)] = ct.c_int(timer_fn.fd)
 prog_array[ct.c_int(223)] = ct.c_int(timer_fn.fd)
 prog_array[ct.c_int(224)] = ct.c_int(timer_fn.fd)
 prog_array[ct.c_int(225)] = ct.c_int(timer_fn.fd)
 prog_array[ct.c_int(226)] = ct.c_int(timer_fn.fd)
-
-# Ignore some syscalls that come up a lot
-prog_array[ct.c_int(21)] = ct.c_int(ignore_fn.fd)
-prog_array[ct.c_int(22)] = ct.c_int(ignore_fn.fd)
-prog_array[ct.c_int(25)] = ct.c_int(ignore_fn.fd)
-prog_array[ct.c_int(29)] = ct.c_int(ignore_fn.fd)
-prog_array[ct.c_int(56)] = ct.c_int(ignore_fn.fd)
-prog_array[ct.c_int(57)] = ct.c_int(ignore_fn.fd)
-prog_array[ct.c_int(63)] = ct.c_int(ignore_fn.fd)
-prog_array[ct.c_int(64)] = ct.c_int(ignore_fn.fd)
-prog_array[ct.c_int(66)] = ct.c_int(ignore_fn.fd)
-prog_array[ct.c_int(72)] = ct.c_int(ignore_fn.fd)
-prog_array[ct.c_int(73)] = ct.c_int(ignore_fn.fd)
-prog_array[ct.c_int(79)] = ct.c_int(ignore_fn.fd)
-prog_array[ct.c_int(98)] = ct.c_int(ignore_fn.fd)
-prog_array[ct.c_int(101)] = ct.c_int(ignore_fn.fd)
-prog_array[ct.c_int(115)] = ct.c_int(ignore_fn.fd)
-prog_array[ct.c_int(131)] = ct.c_int(ignore_fn.fd)
-prog_array[ct.c_int(134)] = ct.c_int(ignore_fn.fd)
-prog_array[ct.c_int(135)] = ct.c_int(ignore_fn.fd)
-prog_array[ct.c_int(139)] = ct.c_int(ignore_fn.fd)
-prog_array[ct.c_int(172)] = ct.c_int(ignore_fn.fd)
-prog_array[ct.c_int(233)] = ct.c_int(ignore_fn.fd)
-prog_array[ct.c_int(280)] = ct.c_int(ignore_fn.fd)
-prog_array[ct.c_int(291)] = ct.c_int(ignore_fn.fd)
 
 b.trace_print()
