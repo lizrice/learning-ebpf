@@ -67,7 +67,7 @@ int main()
 	uint32_t key = 501;
 	struct msg_t msg; 
 	const char *m = "hello Liz";
-	strncpy((char *)&msg.message, m, strlen(m));
+	strncpy((char *)&msg.message, m, sizeof(msg.message));
 	bpf_map__update_elem(skel->maps.my_config, &key, sizeof(key), &msg, sizeof(msg), 0);
 
 	// Attach the progam to the event
