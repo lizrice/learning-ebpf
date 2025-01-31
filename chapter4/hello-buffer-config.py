@@ -5,7 +5,7 @@ import ctypes as ct
 
 program = r"""
 struct user_msg_t {
-   char message[12];
+   char message[13];
 };
 
 BPF_HASH(config, u32, struct user_msg_t);
