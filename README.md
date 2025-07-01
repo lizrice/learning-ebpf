@@ -92,8 +92,8 @@ the book. Here are the different examples that accompany each chapter.
   of different eBPF program types.
 * [Chapter 8: eBPF for Networking](chapter8/README.md) - Example code that
   attaches to various points in the network stack to interfere with ping and
-  curl requests. *Coming soon, load balancer example*
-* Chapter 9: eBPF for Security - *coming soon*
+  curl requests. 
+* [Chapter 9: eBPF for Security](chapter9/README.md) - Example attaching to the LSM API.
 * [Chapter 10: eBPF Programming](chapter10/README.md) - The book explores examples from various eBPF
   libraries.
 * Chapter 11: The Future Evolution of eBPF

@@ -18,7 +18,7 @@ KFUNC_PROBE(security_file_permission, struct file *f, int mask)
   }
 
   bpf_trace_printk("File %s mask %x", f->f_path.dentry->d_iname, mask);
-  bpf_trace_printk("     opened by:%s", command);
+  bpf_trace_printk("     opened by: %s", command);
   
   return 0;
 }
