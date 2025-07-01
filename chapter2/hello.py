@@ -1,5 +1,6 @@
 #!/usr/bin/python3  
 from bcc import BPF
+import sys
 
 program = r"""
 int hello(void *ctx) {
@@ -12,4 +13,7 @@ b = BPF(text=program)
 syscall = b.get_syscall_fnname("execve")
 b.attach_kprobe(event=syscall, fn_name="hello")
 
-b.trace_print()
+try:
+    b.trace_print()
+except KeyboardInterrupt:
+    sys.exit(0)

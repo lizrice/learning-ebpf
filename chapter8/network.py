@@ -2,6 +2,7 @@
 from bcc import BPF
 import socket
 import os
+import sys
 from time import sleep
 from pyroute2 import IPRoute
 
@@ -52,9 +53,11 @@ ipr.tc("add-filter", "bpf", idx, ":1", fd=fi.fd,
 # Remove with sudo tc qdisc del dev docker0 parent ffff:
 # (or make clean)
 
-# Read data from socket filter 
-while True:
-  packet_str = os.read(fd, 4096)
-  print("Userspace got data: %x", packet_str)
-
+try:
+    # Read data from socket filter 
+    while True:
+    packet_str = os.read(fd, 4096)
+    print("Userspace got data: %x", packet_str)
+except KeyboardInterrupt:
+    sys.exit(0)
 
