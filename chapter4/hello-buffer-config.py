@@ -1,7 +1,8 @@
 #!/usr/bin/python3  
 # -*- coding: utf-8 -*-
-from bcc import BPF
 import ctypes as ct
+
+from bcc import BPF
 
 program = r"""
 struct user_msg_t {
@@ -19,7 +20,10 @@ struct data_t {
    char message[12];
 };
 
+/**
 int hello(void *ctx) {
+*/
+RAW_TRACEPOINT_PROBE(sys_enter) {
    struct data_t data = {}; 
    struct user_msg_t *p;
    char message[12] = "Hello World";
@@ -38,13 +42,15 @@ int hello(void *ctx) {
 
    output.perf_submit(ctx, &data, sizeof(data)); 
  
+   /**
    return 0;
+   */
 }
 """
 
 b = BPF(text=program) 
-syscall = b.get_syscall_fnname("execve")
-b.attach_kprobe(event=syscall, fn_name="hello")
+# syscall = b.get_syscall_fnname("execve")
+# b.attach_kprobe(event=syscall, fn_name="hello")
 b["config"][ct.c_int(0)] = ct.create_string_buffer(b"Hey root!")
 b["config"][ct.c_int(501)] = ct.create_string_buffer(b"Hi user 501!")
  
